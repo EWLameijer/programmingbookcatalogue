@@ -1,5 +1,7 @@
 package org.ericwubbo.programmingbookcatalogue;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -10,13 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1/books")
+@RequiredArgsConstructor
+// note this yields big red lines... Either make the field not final and use @AllArgsConstructor,
+// accept the red line, or create an explicit constructor
 public class BookController {
 
     private final BookRepository bookRepository;
-
-    public BookController(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @GetMapping
     public Iterable<Book> getAll(Pageable pageable) { // beware of correct import!

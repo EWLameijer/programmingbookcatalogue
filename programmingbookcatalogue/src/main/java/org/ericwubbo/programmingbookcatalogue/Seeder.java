@@ -1,18 +1,16 @@
 package org.ericwubbo.programmingbookcatalogue;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class Seeder implements CommandLineRunner {
 
     private final BookRepository bookRepository;
-
-    public Seeder(BookRepository bookRepository) {
-        this.bookRepository = bookRepository;
-    }
 
     @Override
     public void run(String... args) throws Exception {

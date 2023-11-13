@@ -1,4 +1,4 @@
-package org.ericwubbo.programmingbookcatalogue;
+package org.ericwubbo.programmingbookcatalogue.book;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

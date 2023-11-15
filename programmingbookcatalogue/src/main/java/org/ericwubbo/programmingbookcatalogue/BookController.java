@@ -19,16 +19,19 @@ public class BookController {
     }
 
     @GetMapping
-    public Iterable<Book> getAll(Pageable pageable) { // beware of correct import!
-        return bookRepository.findAll(pageable); // http://localhost:8080/api/v1/books?page=0&size=10&sort=title,desc
+    public Iterable<Book> getAll() { // beware of correct import!
+        return bookRepository.findAll(); // http://localhost:8080/api/v1/books?page=0&size=10&sort=title,desc
     }
 
     @GetMapping("limited")
     public Iterable<Book> getAllLimited(Pageable pageable) {
-        return bookRepository.findAll(PageRequest.of(pageable.getPageNumber(), Math.min(pageable.getPageSize(), 3),
-                pageable.getSortOr(Sort.by(new Sort.Order(Sort.Direction.ASC, "title"))))).getContent();
-                // getContent() if you don't want all that extra info. Extra info is handy for a frontend, though...
-                //Sort.by(new Sort.Order(Sort.Direction.ASC, "title")))); // http://localhost:8080/api/v1/books?page=0&size=10&sort=title,desc
+        return bookRepository.findAll(
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        Math.min(pageable.getPageSize(), 3),
+                        pageable.getSortOr(Sort.by(Sort.Order.asc("title")))));
+        // getContent() if you don't want all that extra info. Extra info is handy for a frontend, though...
+        //Sort.by(new Sort.Order(Sort.Direction.ASC, "title")))); // http://localhost:8080/api/v1/books?page=0&size=10&sort=title,desc
     }
 
 }

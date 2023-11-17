@@ -28,7 +28,8 @@ public class BookService {
     public Book saveBook(String title, List<Author> authors) {
         Book book = new Book(title);
         bookRepository.save(book);
-        // if (true) throw new IllegalArgumentException("Throwing a wrench into the works!");
+        //if (true) throw new IllegalArgumentException("Throwing a wrench into the works!");
+
         int position = 0;
         for (Author author : authors) {
             Optional<Author> foundAuthor = authorRepository.findAuthorByFirstNameAndLastName(author.getFirstName(), author.getLastName());

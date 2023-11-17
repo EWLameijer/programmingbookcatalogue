@@ -1,12 +1,12 @@
 package org.ericwubbo.programmingbookcatalogue.bookauthor;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ericwubbo.programmingbookcatalogue.book.Book;
 import org.ericwubbo.programmingbookcatalogue.author.Author;
+import org.ericwubbo.programmingbookcatalogue.book.Book;
 
 @Entity
 @NoArgsConstructor
@@ -17,7 +17,7 @@ public class BookAuthor {
     private Long id;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     private Book book;
 
     @ManyToOne

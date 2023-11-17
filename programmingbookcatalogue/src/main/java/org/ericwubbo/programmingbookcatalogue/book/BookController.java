@@ -32,9 +32,12 @@ public class BookController {
 
     @GetMapping("limited")
     public Iterable<Book> getAllLimited(Pageable pageable) {
-        return bookRepository.findAll(PageRequest.of(pageable.getPageNumber(), Math.min(pageable.getPageSize(), 3),
-                pageable.getSortOr(Sort.by(new Sort.Order(Sort.Direction.ASC, "title")))));
-                //Sort.by(new Sort.Order(Sort.Direction.ASC, "title")))); // http://localhost:8080/api/v1/books?page=0&size=10&sort=title,desc
+        return bookRepository.findAll(
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        Math.min(pageable.getPageSize(), 3),
+                        pageable.getSortOr(Sort.by("title"))));
+        //Sort.by(new Sort.Order(Sort.Direction.ASC, "title")))); // http://localhost:8080/api/v1/books?page=0&size=10&sort=title,desc
     }
 
     @GetMapping("{id}")
@@ -42,8 +45,12 @@ public class BookController {
         return bookRepository.findById(id);
     }
 
-    record AuthorDto(String firstName, String lastName) {}
-    record BookDto(String title, AuthorDto[] authors) {}
+    record AuthorDto(String firstName, String lastName) {
+    }
+
+    record BookDto(String title, AuthorDto[] authors) {
+    }
+
     @PostMapping
     public ResponseEntity<Book> postBook(@RequestBody BookDto bookDto, UriComponentsBuilder ucb) {
         Book book = bookService.saveBook(bookDto.title, Arrays.stream(bookDto.authors).map(a -> new Author(a.firstName, a.lastName)).toList());
